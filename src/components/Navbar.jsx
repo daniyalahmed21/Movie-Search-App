@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import useMoveList from "../hooks/useMovieList";
 
 const Navbar = () => {
   const [showSearchList, setShowSearchList] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const dummySuggestions = ["Avengers", "Batman", "Inception", "Interstellar"];
 
+  const movieList = useMoveList(searchQuery ? searchQuery : "Harry Potter")
   return (
     <nav className="bg-white border-b border-gray-300 px-4 sm:px-8 md:px-16 py-3 relative">
       <div className="flex items-center justify-between">
@@ -24,9 +25,9 @@ const Navbar = () => {
 
           {showSearchList && (
             <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-              {dummySuggestions.map((suggestion,index) => (
+              {movieList.map((movie,index) => (
                 <div key={index} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  {suggestion}
+                  {movie.Title}
                 </div>
               ))}
             </div>

@@ -1,24 +1,9 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { searchMovie } from "../api/omdb";
+import React from "react";
 import MovieCard from "../components/MovieCard";
+import useMoveList from "../hooks/useMovieList";
 
 const Home = () => {
-  const [movieList, setMovieList] = useState([]);
-
-  async function downloadDefaultMovies(...args) {
-    const urls = args.map((arg) => searchMovie(arg));
-
-    const response = await axios.all(urls.map((url) => axios.get(url)));
-
-    response.map((res) =>
-      setMovieList((prev) => [...prev, ...res.data.Search])
-    );
-  }
-
-  useEffect(() => {
-    downloadDefaultMovies("Harry", "Avengers");
-  }, []);
+  const movieList = useMoveList("Avengers");
 
   return (
     <div className="flex flex-wrap items-center justify-center p-4 gap-4">
