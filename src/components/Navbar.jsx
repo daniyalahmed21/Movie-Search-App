@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import useMoveList from "../hooks/useMovieList";
+import useMovieList from "../hooks/useMovieList";
+import useDebounce from "../hooks/useDebounce";
 
 const Navbar = () => {
   const [showSearchList, setShowSearchList] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState();
 
+  const movieList = useMovieList(searchQuery);
 
-  const movieList = useMoveList(searchQuery ? searchQuery : "Harry Potter")
   return (
     <nav className="bg-white border-b border-gray-300 px-4 sm:px-8 md:px-16 py-3 relative">
       <div className="flex items-center justify-between">
@@ -15,18 +16,21 @@ const Navbar = () => {
         <div className="relative flex-1 mx-6 max-w-xl">
           <input
             type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            // value={searchQuery}
             onFocus={() => setShowSearchList(true)}
-            onBlur={() =>setShowSearchList(false)}
+            onBlur={() => setTimeout(() => setShowSearchList(false), 150)}
+            onChange={useDebounce((e) => setSearchQuery(e.target.value), 1000)}
             placeholder="Search movies..."
             className="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder:text-gray-500"
           />
 
-          {showSearchList && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-              {movieList.map((movie,index) => (
-                <div key={index} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+          {showSearchList && movieList.length > 0 && (
+            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+              {movieList.map((movie, index) => (
+                <div
+                  key={index}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
                   {movie.Title}
                 </div>
               ))}
