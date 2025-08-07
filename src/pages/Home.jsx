@@ -10,6 +10,7 @@ const Home = () => {
       {movieList.map((movie) => (
         <MovieCard
           key={movie.imdbID}
+          imdbID={movie.imdbID}
           Title={movie.Title}
           Year={movie.Year}
           Type={movie.Type}

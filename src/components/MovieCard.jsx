@@ -1,8 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
-const MovieCard = ({ Title, Year, Type, Poster }) => {
+const MovieCard = ({ Title, Year, Type, Poster,imdbID}) => {
+  const navigate = useNavigate()
+  const handleClick = () =>{
+    navigate(`/movie/${imdbID}`)
+  }
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden w-64">
+    <div onClick={handleClick} className="bg-white rounded-lg shadow-md overflow-hidden w-64">
       <img
         src={Poster !== "N/A" ? Poster : "https://via.placeholder.com/300x450?text=No+Image"}
         alt={Title}
