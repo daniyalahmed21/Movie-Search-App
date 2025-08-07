@@ -12,6 +12,7 @@ function useDebounce(callback, delay = 1000) {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
+    console.log(args)
     timerRef.current = setTimeout(() => {
       callback(...args);
     }, delay);

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import useMovieList from "../hooks/useMovieList";
 import useDebounce from "../hooks/useDebounce";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showSearchList, setShowSearchList] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const navigate = useNavigate(); 
   const debouncedSearch = useDebounce((value) => {
     setSearchQuery(value);
   }, 300);
@@ -15,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white border-b border-gray-300 px-4 sm:px-8 md:px-16 py-3 relative">
       <div className="flex items-center justify-between">
-        <div className="text-xl font-semibold text-gray-800">🎬 MovieApp</div>
+        <div className="text-xl font-semibold text-gray-800"><Link to={"/"}>🎬 MovieApp</Link></div>
 
         <div className="relative flex-1 mx-6 max-w-xl">
           <input
@@ -35,6 +36,8 @@ const Navbar = () => {
                   onMouseDown={() => {
                     setSearchQuery(movie.Title);
                     setShowSearchList(false);
+                    console.log("navigate:", useNavigate);
+                    navigate(`/movie/${movie.imdbID}`); 
                   }}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
