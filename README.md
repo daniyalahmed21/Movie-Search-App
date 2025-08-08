@@ -5,4 +5,5 @@ Important Concepts
  - debouncing 
  - toggle theming
  - context api
- - 
+ - Browser storage
+ - npx vercel to deploy from cli
