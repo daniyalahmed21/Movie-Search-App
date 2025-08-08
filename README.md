@@ -3,3 +3,6 @@
 Important Concepts 
  - axios.all (handle promise arrays)
  - debouncing 
+ - toggle theming
+ - context api
+ - 

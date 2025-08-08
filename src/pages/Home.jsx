@@ -6,7 +6,10 @@ const Home = () => {
   const movieList = useMoveList("Avengers");
 
   return (
-    <div className="flex flex-wrap items-center justify-center p-4 gap-4">
+    <div
+      className="flex flex-wrap items-center justify-center p-4 gap-4 transition-colors duration-300 dark:bg-gray-900 dark:text-white
+          bg-gray-100 text-gray-800"
+    >
       {movieList.map((movie) => (
         <MovieCard
           key={movie.imdbID}
